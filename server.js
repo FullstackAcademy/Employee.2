@@ -2,11 +2,16 @@ const express = require("express");
 const app = express();
 const PORT = 3000;
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("Hello employees!");
 });
 
 const employees = require("./employees");
+
+const employeesRouter = require("./routes");
+app.use("/employees", employeesRouter); 
 
 app.get("/employees", (req, res) => {
   res.json(employees);
@@ -28,5 +33,5 @@ app.get("/employees/:id", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  `Listening on port ${PORT}...`;
+  console.log(`Listening on port ${PORT}`)
 });
